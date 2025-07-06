@@ -5,6 +5,13 @@ public class Account
 	private int accountNumber;
 	private String customerName;
 	
+	public Account(double balance, int accountNumber, String customerName)
+	{
+		this.balance = balance;
+		this.accountNumber = accountNumber;
+		this.customerName = customerName;
+	}
+	
 	public void deposit(double amount)
 	{
 		setBalance(getBalance() + amount);
@@ -37,6 +44,16 @@ public class Account
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}
+	
+	public String toCSV()
+	{
+		return balance + "," + accountNumber + "," + customerName;
+	}
+	
+	public String toString()
+	{
+		return "Customer Name: " + customerName + " || Account Number: " + accountNumber + " || Balance: " + balance;
 	}
 	
 }
