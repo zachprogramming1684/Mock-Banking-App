@@ -12,17 +12,18 @@ public class BankService
 	 * --- Features ---
 	 * 
 	 * - Save to file (DONE)
-	 * - Keep track of ID numbers
+	 * - Keep track of ID numbers (DONE I THINK)
 	 * 
 	 * - Open a new account (DONE)
 	 * - Deposit money (DONE)
 	 * - Withdraw money (DONE)
-	 * - Check balance for account
+	 * - Check balance for account or all accounts (DONE)
 	 * - Transfer funds between accounts
 	 * - Calculate interest for a month
 	 */
 	
 	private ArrayList<Account> accounts; //declare accounts instance variable
+	private int idCount = 0;
 	
 	public BankService() //initialize accounts variable in the constructor
 	{
@@ -44,11 +45,21 @@ public class BankService
 				{
 					Account a = new CheckingAccount(Double.parseDouble(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
 					accounts.add(a);
+					idCount++;
 				}
 				else if(Integer.parseInt(tokens[0]) == 0)
 				{
 					Account a = new SavingsAccount(Double.parseDouble(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
 					accounts.add(a);
+					idCount++;
+				}
+			}
+			
+			for(Account a : accounts)
+			{
+				if(a.getAccountNumber() - idCount > 0)
+				{
+					idCount++;
 				}
 			}
 			
@@ -59,7 +70,7 @@ public class BankService
 		}
 	}
 	
-	public void openNewAccount(int choice, double balance, int accountNumber, String customerName) throws FileNotFoundException
+	public void openNewAccount(int choice, double balance, String customerName) throws FileNotFoundException
 	{
 		File f = new File("accounts.csv");
 		FileOutputStream fo = new FileOutputStream(f, true);
@@ -67,7 +78,8 @@ public class BankService
 		
 		if(choice == 0)
 		{
-			Account a = new CheckingAccount(balance, accountNumber, customerName);
+			idCount++;
+			Account a = new CheckingAccount(balance, idCount, customerName);
 			accounts.add(a);
 			out.print(a.toCSV());
 			out.flush();
@@ -75,7 +87,8 @@ public class BankService
 		}
 		else if(choice == 1)
 		{
-			Account a = new SavingsAccount(balance, accountNumber, customerName);
+			idCount++;
+			Account a = new SavingsAccount(balance, idCount, customerName);
 			accounts.add(a);
 			out.print(a.toCSV());
 			out.flush();
@@ -124,6 +137,28 @@ public class BankService
 					System.out.println("Please provide a valid amount");
 					break;
 				}
+			}
+		}
+	}
+	
+	public void checkBalance(int acctNum)
+	{
+		if(acctNum != 0)
+		{
+			for(Account a : accounts)
+			{
+				if(acctNum == a.getAccountNumber())
+				{
+					System.out.println("Balance: $" + a.getBalance());
+					break;
+				}
+			}
+		}
+		else
+		{
+			for(Account a : accounts)
+			{
+				System.out.print(a);
 			}
 		}
 	}

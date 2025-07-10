@@ -24,15 +24,16 @@ public class Main
 	public static void main(String[] args) throws FileNotFoundException 
 	{
 		BankService bankService = new BankService();
-		
-		bankService.openNewAccount(0, 200, 6, "zachy123");
-		//bankService.openNewAccount(0, 400, 2, "bobber");
-		//bankService.openNewAccount(0, 600, 3, "myfriends");
-		
 		bankService.loadAccounts();
 		
-		bankService.depositMoney(1, 100000);
-		bankService.withdrawMoney(2, 1);
+		bankService.openNewAccount(0, 200,"zachy123");
+		
+		
+		
+		
+		//bankService.depositMoney(1, 100000);
+		//bankService.withdrawMoney(2, 1);
+		//bankService.checkBalance(0);
 		
 		 
 		
