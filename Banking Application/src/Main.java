@@ -25,11 +25,17 @@ public class Main
 	{
 		BankService bankService = new BankService();
 		
-		//bankService.openNewAccount(0, 100, 1, "zach");
-		//bankService.openNewAccount(0, 1500, 2, "boib");
-		//bankService.openNewAccount(0, 240, 3, "gen");
+		bankService.openNewAccount(0, 200, 6, "zachy123");
+		//bankService.openNewAccount(0, 400, 2, "bobber");
+		//bankService.openNewAccount(0, 600, 3, "myfriends");
 		
 		bankService.loadAccounts();
+		
+		bankService.depositMoney(1, 100000);
+		bankService.withdrawMoney(2, 1);
+		
+		 
+		
 		
 		
 	}
