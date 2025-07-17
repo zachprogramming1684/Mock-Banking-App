@@ -48,7 +48,7 @@ public class BankService
 					accounts.add(a);
 					idCount++;
 				}
-				else if(Integer.parseInt(tokens[0]) == 0)
+				else if(Integer.parseInt(tokens[0]) == 1)
 				{
 					Account a = new SavingsAccount(Double.parseDouble(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
 					accounts.add(a);
@@ -126,7 +126,7 @@ public class BankService
 		{
 			if(acctNum == a.getAccountNumber())
 			{
-				if(a.getBalance() - amount >= 0)
+				if(a.getBalance() - amount >= 0 && amount <= a.getBalance())
 				{
 					a.setBalance(a.getBalance() - amount);
 					saveToFile();
@@ -164,10 +164,10 @@ public class BankService
 		}
 	}
 	
-	public void transferFunds(int acct1Num, int acct2Num, int direction)
+	public void transferFunds(int acct1Num, int acct2Num, double amount)
 	{
-		Account acct1;
-		Account acct2;
+		Account acct1 = null;
+		Account acct2 = null;
 		
 		for(Account a : accounts)
 		{
@@ -178,22 +178,23 @@ public class BankService
 			else if (acct2Num == a.getAccountNumber())
 			{
 				acct2 = a;
-			}
+			}	
 		}
 		
-		if(direction == 0)
+		if(acct1 != null && acct2 != null)
 		{
-			
-		}
-		else if	(direction == 1)
-		{
-			
+			 if(acct1.getBalance() - amount >= 0 && amount <= acct1.getBalance())
+			 {
+				 acct1.setBalance(acct1.getBalance() - amount);
+				 acct2.setBalance(acct2.getBalance() + amount);
+				 saveToFile();
+				 System.out.println("Transfer successfull.");
+			 }
 		}
 		else
 		{
-			System.out.println("Something went wrong please try again.");
+			System.out.println("Please provide valid account numbers.");
 		}
-		
 	}
 	
 	public void saveToFile()
