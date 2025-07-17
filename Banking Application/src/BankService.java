@@ -164,6 +164,38 @@ public class BankService
 		}
 	}
 	
+	public void transferFunds(int acct1Num, int acct2Num, int direction)
+	{
+		Account acct1;
+		Account acct2;
+		
+		for(Account a : accounts)
+		{
+			if(acct1Num == a.getAccountNumber())
+			{
+				acct1 = a;
+			}
+			else if (acct2Num == a.getAccountNumber())
+			{
+				acct2 = a;
+			}
+		}
+		
+		if(direction == 0)
+		{
+			
+		}
+		else if	(direction == 1)
+		{
+			
+		}
+		else
+		{
+			System.out.println("Something went wrong please try again.");
+		}
+		
+	}
+	
 	public void saveToFile()
 	{
 		try
