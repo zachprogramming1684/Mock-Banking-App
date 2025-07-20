@@ -1,0 +1,5 @@
+MainFrame.java
+	- Holds panels
+	- Needs to use a layout manager somehow
+	- Receives BankService in constructor
+	

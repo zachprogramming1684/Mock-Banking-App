@@ -2,9 +2,11 @@ package gui;
 
 import javax.swing.JFrame;
 
+import logic.BankService;
+
 public class MainFrame extends JFrame
 {
-	public MainFrame()
+	public MainFrame(BankService bankService)
 	{
 		this.setTitle("Banking Application");
 		this.setSize(600,600);

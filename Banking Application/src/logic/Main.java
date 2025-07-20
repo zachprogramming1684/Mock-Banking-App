@@ -1,8 +1,6 @@
 package logic;
 
-
 import java.io.FileNotFoundException;
-
 import gui.MainFrame;
 
 public class Main 
@@ -28,7 +26,7 @@ public class Main
 	
 	public static void main(String[] args) throws FileNotFoundException 
 	{
-		MainFrame frame = new MainFrame();
+		
 		
 		
 		/*
