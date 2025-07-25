@@ -26,6 +26,10 @@ public class Main
 	
 	public static void main(String[] args) throws FileNotFoundException 
 	{
+		BankService bankService = new BankService();
+		bankService.setUsername("test");
+		bankService.setPassword("test");
+		MainFrame frame = new MainFrame(bankService);
 		
 		
 		

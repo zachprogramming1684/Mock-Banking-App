@@ -27,6 +27,8 @@ public class BankService
 	
 	private ArrayList<Account> accounts; //declare accounts instance variable
 	private int idCount = 0;
+	private String username;
+	private String password;
 	
 	public BankService() //initialize accounts variable in the constructor
 	{
@@ -70,6 +72,18 @@ public class BankService
 		catch(FileNotFoundException e)
 		{
 			System.out.println("There was an error loading in account data, please try again.");
+		}
+	}
+	
+	public boolean checkLogin(String username, String password)
+	{
+		if(getUsername().equals(username) && getPassword().equals(password))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 	
@@ -219,4 +233,22 @@ public class BankService
 			System.out.println("Error writing to file, please make sure the file is closed.");
 		}
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 }
