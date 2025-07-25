@@ -93,7 +93,7 @@ public class BankService
 		FileOutputStream fo = new FileOutputStream(f, true);
 		PrintWriter out = new PrintWriter(fo);
 		
-		if(choice == 0)
+		if(choice == 0) // 0 is for checking account
 		{
 			idCount++;
 			Account a = new CheckingAccount(balance, idCount, customerName);
@@ -102,7 +102,7 @@ public class BankService
 			out.flush();
 			System.out.println("Account opened successfully");
 		}
-		else if(choice == 1)
+		else if(choice == 1) // 1 is for savings account
 		{
 			idCount++;
 			Account a = new SavingsAccount(balance, idCount, customerName);
