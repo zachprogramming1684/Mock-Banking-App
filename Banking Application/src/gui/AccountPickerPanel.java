@@ -1,5 +1,8 @@
 package gui;
 
-public class AccountPickerPanel {
+import javax.swing.JPanel;
+
+public class AccountPickerPanel extends JPanel 
+{
 
 }
