@@ -249,6 +249,11 @@ public class BankService
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public ArrayList<Account> getAccounts()
+	{
+		return accounts;
+	}
 
 
 }

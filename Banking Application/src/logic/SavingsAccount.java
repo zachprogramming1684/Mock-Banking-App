@@ -24,6 +24,6 @@ public class SavingsAccount extends Account
 	
 	public String toString()
 	{
-		return "Customer Name: " + this.getCustomerName() + " || Savings Account || Account Number: " + this.getAccountNumber() + " || Balance: " + this.getBalance() + "\n";
+		return "Savings Account || ID: " + this.getAccountNumber() + "\n";	
 	}
 }
