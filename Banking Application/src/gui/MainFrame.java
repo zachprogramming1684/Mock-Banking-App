@@ -26,6 +26,7 @@ public class MainFrame extends JFrame implements PanelSwitcher
 		
 		cardPanel.add(new LoginPanel(this, bankService), "Login Panel");
 		cardPanel.add(new AccountPanel(this, bankService), "Account Panel");
+		cardPanel.add(new MakeAccountPanel(this, bankService), "MakeAccountPanel");
 		
 		add(cardPanel);
 		setVisible(true);

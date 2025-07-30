@@ -100,7 +100,7 @@ public class BankService
 			accounts.add(a);
 			out.print(a.toCSV());
 			out.flush();
-			System.out.println("Account opened successfully");
+			System.out.println("Checking Account opened successfully");
 		}
 		else if(choice == 1) // 1 is for savings account
 		{
@@ -109,7 +109,7 @@ public class BankService
 			accounts.add(a);
 			out.print(a.toCSV());
 			out.flush();
-			System.out.println("Account opened successfully");
+			System.out.println("Savings Account opened successfully");
 		}
 		out.close();
 	}

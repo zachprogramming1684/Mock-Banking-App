@@ -10,6 +10,7 @@ import javax.print.attribute.standard.JobOriginatingUserName;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -20,8 +21,16 @@ public class LoginPanel extends JPanel
 	private PanelSwitcher panelSwitcher; //gives this class a panelSwitcher object to be filled by the constructor
 	private BankService bankService;
 	
+	private JLabel loginLabel;
+	private JLabel usernameLabel;
 	private JTextField usernameBox;
+	private JLabel passwordLabel;
 	private JTextField passwordBox;
+	private JButton submitButton;
+	
+	private String errorMessage;
+	private String dialogTitle;
+	private JPanel loginError;
 	
 	public LoginPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
@@ -35,14 +44,14 @@ public class LoginPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridwidth = 2;
-		JLabel loginLabal = new JLabel("Please login");
-		add(loginLabal, gbc);
+		loginLabel = new JLabel("Please login");
+		add(loginLabel, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1;
-		JLabel username = new JLabel("Username:");
-		add(username, gbc);
+		usernameLabel = new JLabel("Username:");
+		add(usernameLabel, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 1;
@@ -52,8 +61,8 @@ public class LoginPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.gridwidth = 1;
-		JLabel password = new JLabel("Password:");
-		add(password, gbc);
+		passwordLabel = new JLabel("Password:");
+		add(passwordLabel, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 2;
@@ -63,7 +72,7 @@ public class LoginPanel extends JPanel
 		gbc.gridwidth = 2;
 		gbc.gridx = 0;
 		gbc.gridy = 3;
-		JButton submitButton = new JButton("Submit");
+		submitButton = new JButton("Submit");
 		submitButton.addActionListener(new MyActionListener());
 		add(submitButton, gbc);
 		
@@ -72,9 +81,14 @@ public class LoginPanel extends JPanel
 	
 	public class MyActionListener implements ActionListener
 	{
+		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
+	        errorMessage = "Incorrect Password or Username";
+	        dialogTitle = "Error";
+	        loginError = new JPanel();
+	        
 			boolean goodLogin = bankService.checkLogin(usernameBox.getText(), passwordBox.getText());
 			
 			if(goodLogin == true)
@@ -84,6 +98,7 @@ public class LoginPanel extends JPanel
 			}
 			else
 			{
+		        JOptionPane.showMessageDialog(loginError, errorMessage, dialogTitle, JOptionPane.ERROR_MESSAGE);
 				System.out.println("it works 2");
 
 			}

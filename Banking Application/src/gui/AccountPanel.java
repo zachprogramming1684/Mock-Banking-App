@@ -2,6 +2,8 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -19,22 +21,31 @@ public class AccountPanel extends JPanel
 	private PanelSwitcher panelSwitcher; //gives this class a panelSwitcher object to be filled by the constructor
 	private BankService bankService;
 	
+	private JLabel loginLabel;
 	private JComboBox<Account> accountSelector;
 	private DefaultComboBoxModel<Account> accountSelectorModel;
+	private JLabel orDoThis;
 	private JButton openAccount;
+	private JLabel depositLabel;
 	private JTextField depositField;
 	private JButton depositSubmit;
+	private JLabel withdrawLabel;
+	private JTextField withdrawField;
+	private JButton withdrawSubmit;
 	
 	public AccountPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
+		this.panelSwitcher = panelSwitcher;
+		this.bankService = bankService;
+		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5,5,5,5);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		JLabel loginLabal = new JLabel("Please Select an Account");
-		add(loginLabal, gbc);
+		loginLabel = new JLabel("Please Select an Account");
+		add(loginLabel, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -50,20 +61,21 @@ public class AccountPanel extends JPanel
 		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		JLabel orDoThis = new JLabel("or");
+		orDoThis = new JLabel("or");
 		add(orDoThis, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(10, 5, 5, 5);
 		openAccount = new JButton("Open new account");
+		openAccount.addActionListener(new MyActionListener());
 		add(openAccount, gbc);
 		// NEEDS ACTION LISTENER
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		gbc.insets = new Insets(5,150,5,5);
-		JLabel depositLabel = new JLabel("Deposit");
+		depositLabel = new JLabel("Deposit");
 		add(depositLabel, gbc);
 		
 		gbc.gridx = 1;
@@ -76,6 +88,39 @@ public class AccountPanel extends JPanel
 		gbc.insets = new Insets(5,150,5,5);
 		depositSubmit = new JButton("Submit");
 		add(depositSubmit, gbc);
+		// NEEDS ACTION LISTENER
+		
+		gbc.gridx = 1;
+		gbc.gridy = 6;
+		gbc.insets = new Insets(5,150,5,5);
+		withdrawLabel = new JLabel("Withdraw");
+		add(withdrawLabel, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 7;
+		withdrawField = new JTextField(10);
+		add(withdrawField, gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 8;
+		withdrawSubmit = new JButton("Submit");
+		add(withdrawSubmit, gbc);
+		// NEEDS ACTION LISTENER
+		
+	}
+	
+	public class MyActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(e.getSource() == openAccount)
+			{
+				panelSwitcher.showPanel("MakeAccountPanel");
+			}
+			
+		}
 		
 	}
 }
