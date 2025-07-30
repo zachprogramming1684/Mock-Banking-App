@@ -68,20 +68,20 @@ public class MakeAccountPanel extends JPanel
 		gbc.gridy = 2;
 		gbc.insets = new Insets(25, 10, 10, 10);
 		createAccount = new JButton("Create Account");
-		createAccount.addActionListener(new createAccountActionListener());
+		createAccount.addActionListener(new CreateAccountActionListener());
 		add(createAccount, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(75, 10, 10, 10);
 		returnButton = new JButton("Go to Accounts Page");
-		returnButton.addActionListener(new goBackActionListener());
+		returnButton.addActionListener(new GoBackActionListener());
 		add(returnButton, gbc);
 		
 		
 	}
 	
-	public class createAccountActionListener implements ActionListener
+	public class CreateAccountActionListener implements ActionListener
 	{
 
 		@Override
@@ -138,7 +138,7 @@ public class MakeAccountPanel extends JPanel
 		
 	}
 	
-	public class goBackActionListener implements ActionListener
+	public class GoBackActionListener implements ActionListener
 	{
 
 		@Override

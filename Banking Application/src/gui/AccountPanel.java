@@ -68,7 +68,7 @@ public class AccountPanel extends JPanel
 		gbc.gridy = 3;
 		gbc.insets = new Insets(10, 5, 5, 5);
 		openAccount = new JButton("Open new account");
-		openAccount.addActionListener(new MyActionListener());
+		openAccount.addActionListener(new MakeAccountActionListener());
 		add(openAccount, gbc);
 		// NEEDS ACTION LISTENER
 		
@@ -109,16 +109,13 @@ public class AccountPanel extends JPanel
 		
 	}
 	
-	public class MyActionListener implements ActionListener
+	public class MakeAccountActionListener implements ActionListener
 	{
 
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			if(e.getSource() == openAccount)
-			{
-				panelSwitcher.showPanel("MakeAccountPanel");
-			}
+			panelSwitcher.showPanel("MakeAccountPanel");
 			
 		}
 		

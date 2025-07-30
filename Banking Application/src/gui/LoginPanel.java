@@ -73,13 +73,13 @@ public class LoginPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		submitButton = new JButton("Submit");
-		submitButton.addActionListener(new MyActionListener());
+		submitButton.addActionListener(new LoginActionListener());
 		add(submitButton, gbc);
 		
 		
 	}
 	
-	public class MyActionListener implements ActionListener
+	public class LoginActionListener implements ActionListener
 	{
 		
 		@Override
