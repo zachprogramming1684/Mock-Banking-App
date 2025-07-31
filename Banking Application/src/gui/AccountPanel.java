@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,6 +27,7 @@ public class AccountPanel extends JPanel
 	private DefaultComboBoxModel<Account> accountSelectorModel;
 	private JLabel orDoThis;
 	private JButton openAccount;
+	private JButton viewSelectedAccount;
 	private JButton deleteSelectedAccount;
 	private JButton refresh;
 	private JLabel depositLabel;
@@ -34,6 +36,9 @@ public class AccountPanel extends JPanel
 	private JLabel withdrawLabel;
 	private JTextField withdrawField;
 	private JButton withdrawSubmit;
+	
+	private JPanel popupPanel;
+	private String acctDetailsMessage;
 	
 	public AccountPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
@@ -56,30 +61,36 @@ public class AccountPanel extends JPanel
 		accountSelector = new JComboBox<>(accountSelectorModel);
 		accountSelector.setSelectedIndex(-1);
 		add(accountSelector, gbc);
-		
+
 		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
+		viewSelectedAccount = new JButton("View Account Details");
+		viewSelectedAccount.addActionListener(new viewAcctDetailsActionListener());
+		add(viewSelectedAccount, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		deleteSelectedAccount = new JButton("Delete Selected Account");
+		deleteSelectedAccount.addActionListener(new DeleteSelectedAccountActionListener());
+		add(deleteSelectedAccount, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 4;
 		orDoThis = new JLabel("or");
 		add(orDoThis, gbc);
 		
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 5;
 		gbc.insets = new Insets(10, 5, 5, 5);
 		openAccount = new JButton("Open New Account");
 		openAccount.addActionListener(new MakeAccountActionListener());
 		add(openAccount, gbc);
-		
-		// PROGRAM VIEW ACCOUNT SUMMARY BUTTON
-		
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		deleteSelectedAccount = new JButton("Delete Selected Account");
-		deleteSelectedAccount.addActionListener(new DeleteSelectedAccountActionListener());
-		add(deleteSelectedAccount, gbc);
+
+
 	
 		gbc.gridx = 0;
-		gbc.gridy = 5;
+		gbc.gridy = 6;
 		refresh = new JButton("Refresh Accounts");
 		refresh.addActionListener(new RefreshButtonActionListener());
 		add(refresh, gbc);
@@ -103,18 +114,18 @@ public class AccountPanel extends JPanel
 		// NEEDS ACTION LISTENER
 		
 		gbc.gridx = 1;
-		gbc.gridy = 6;
+		gbc.gridy = 5;
 		gbc.insets = new Insets(5,150,5,5);
 		withdrawLabel = new JLabel("Withdraw");
 		add(withdrawLabel, gbc);
 		
 		gbc.gridx = 1;
-		gbc.gridy = 7;
+		gbc.gridy = 6;
 		withdrawField = new JTextField(10);
 		add(withdrawField, gbc);
 		
 		gbc.gridx = 1;
-		gbc.gridy = 8;
+		gbc.gridy = 7;
 		withdrawSubmit = new JButton("Submit");
 		add(withdrawSubmit, gbc);
 		// NEEDS ACTION LISTENER
@@ -129,6 +140,22 @@ public class AccountPanel extends JPanel
 		public void actionPerformed(ActionEvent e) 
 		{
 			panelSwitcher.showPanel("MakeAccountPanel");
+			
+		}
+		
+	}
+	
+	public class viewAcctDetailsActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Account chosenAcct = (Account) accountSelector.getSelectedItem();
+			String acctName = chosenAcct.getCustomerName();
+			double balance = chosenAcct.getBalance();
+			acctDetailsMessage = "Account Name: " + acctName + "\n Balance: $" + balance;
+			JOptionPane.showMessageDialog(popupPanel, acctDetailsMessage);
 			
 		}
 		

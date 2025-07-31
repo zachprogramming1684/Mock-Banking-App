@@ -79,7 +79,7 @@ public class MakeAccountPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(75, 10, 10, 10);
-		returnButton = new JButton("Go to Accounts Page");
+		returnButton = new JButton("Go Back");
 		returnButton.addActionListener(new GoBackActionListener());
 		add(returnButton, gbc);
 		
