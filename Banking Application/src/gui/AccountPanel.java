@@ -26,6 +26,8 @@ public class AccountPanel extends JPanel
 	private DefaultComboBoxModel<Account> accountSelectorModel;
 	private JLabel orDoThis;
 	private JButton openAccount;
+	private JButton deleteSelectedAccount;
+	private JButton refresh;
 	private JLabel depositLabel;
 	private JTextField depositField;
 	private JButton depositSubmit;
@@ -50,10 +52,7 @@ public class AccountPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		accountSelectorModel = new DefaultComboBoxModel<Account>();
-		for(Account a : bankService.getAccounts())
-		{
-			accountSelectorModel.addElement(a);
-		}
+		accountSelectorModel.addAll(bankService.getAccounts());
 		accountSelector = new JComboBox<>(accountSelectorModel);
 		accountSelector.setSelectedIndex(-1);
 		add(accountSelector, gbc);
@@ -67,10 +66,23 @@ public class AccountPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(10, 5, 5, 5);
-		openAccount = new JButton("Open new account");
+		openAccount = new JButton("Open New Account");
 		openAccount.addActionListener(new MakeAccountActionListener());
 		add(openAccount, gbc);
-		// NEEDS ACTION LISTENER
+		
+		// PROGRAM VIEW ACCOUNT SUMMARY BUTTON
+		
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		deleteSelectedAccount = new JButton("Delete Selected Account");
+		deleteSelectedAccount.addActionListener(new DeleteSelectedAccountActionListener());
+		add(deleteSelectedAccount, gbc);
+	
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		refresh = new JButton("Refresh Accounts");
+		refresh.addActionListener(new RefreshButtonActionListener());
+		add(refresh, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
@@ -109,6 +121,7 @@ public class AccountPanel extends JPanel
 		
 	}
 	
+	
 	public class MakeAccountActionListener implements ActionListener
 	{
 
@@ -117,6 +130,33 @@ public class AccountPanel extends JPanel
 		{
 			panelSwitcher.showPanel("MakeAccountPanel");
 			
+		}
+		
+	}
+	
+	public class DeleteSelectedAccountActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Account acctToRemove = (Account) accountSelector.getSelectedItem();
+			int indexToRemove = acctToRemove.getAccountNumber();
+			bankService.removeAccount(indexToRemove);
+			accountSelectorModel.removeAllElements();
+			accountSelectorModel.addAll(bankService.getAccounts());
+		}
+		
+	}
+	
+	public class RefreshButtonActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			accountSelectorModel.removeAllElements();
+			accountSelectorModel.addAll(bankService.getAccounts());	
 		}
 		
 	}

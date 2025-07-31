@@ -114,6 +114,19 @@ public class BankService
 		out.close();
 	}
 	
+	public void removeAccount(int acctNum)
+	{
+		for(Account a : accounts)
+		{
+			if(a.getAccountNumber() == acctNum)
+			{
+				accounts.remove(a);
+				break;
+			}
+		}
+		saveToFile();
+	}
+	
 	public void depositMoney(int acctNum, double amount)
 	{
 		for(Account a : accounts)

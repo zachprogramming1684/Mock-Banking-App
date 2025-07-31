@@ -6,6 +6,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import logic.Account;
 import logic.BankService;
 
 public class MakeAccountPanel extends JPanel
@@ -33,8 +35,11 @@ public class MakeAccountPanel extends JPanel
 	private String errorTitle = "An error occured.";
 	private JPanel popupPanel = new JPanel();
 	
+	
 	public MakeAccountPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
+		
+		
 		this.bankService = bankService;
 		this.panelSwitcher = panelSwitcher;
 		

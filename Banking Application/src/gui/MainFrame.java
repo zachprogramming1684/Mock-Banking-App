@@ -12,6 +12,8 @@ public class MainFrame extends JFrame implements PanelSwitcher
 	private JPanel cardPanel; // Panel that holds all the cards
 	private CardLayout cardLayout; // Card layout manager
 	
+	
+	
 	public MainFrame(BankService bankService)
 	{
 		setTitle("Banking Application");

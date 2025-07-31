@@ -25,6 +25,6 @@ public class CheckingAccount extends Account
 	
 	public String toString()
 	{
-		return "Checking Account || ID: " + this.getAccountNumber() + "\n";
+		return "Checking Account || ID: " + this.getAccountNumber();
 	}
 }
