@@ -18,6 +18,8 @@ import logic.BankService;
 
 public class LoginPanel extends JPanel
 {
+
+	private static final long serialVersionUID = 1L;
 	private PanelSwitcher panelSwitcher; //gives this class a panelSwitcher object to be filled by the constructor
 	private BankService bankService;
 	

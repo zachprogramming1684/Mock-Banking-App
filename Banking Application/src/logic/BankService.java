@@ -67,7 +67,7 @@ public class BankService
 					idCount++;
 				}
 			}
-			
+			in.close();
 		}
 		catch(FileNotFoundException e)
 		{
@@ -127,7 +127,7 @@ public class BankService
 		saveToFile();
 	}
 	
-	public void depositMoney(int acctNum, double amount)
+	public boolean depositMoney(int acctNum, double amount)
 	{
 		for(Account a : accounts)
 		{
@@ -137,19 +137,18 @@ public class BankService
 				{
 					a.setBalance(a.getBalance() + amount);
 					saveToFile();
-					System.out.println("Deposit successful");
-					break;
+					return true;
 				}
 				else
 				{
-					System.out.println("Please provide an amount greater than 0 to deposit.");
-					break;
+					return false;
 				}
 			}
 		}
+		return false;
 	}
 	
-	public void withdrawMoney(int acctNum, double amount)
+	public boolean withdrawMoney(int acctNum, double amount)
 	{
 		for(Account a : accounts)
 		{
@@ -159,16 +158,15 @@ public class BankService
 				{
 					a.setBalance(a.getBalance() - amount);
 					saveToFile();
-					System.out.println("Withdraw successful");
-					break;
+					return true;
 				}
 				else
 				{
-					System.out.println("Please provide a valid amount");
-					break;
+					return false;
 				}
 			}
 		}
+		return false;
 	}
 	
 	public void checkBalance(int acctNum)

@@ -34,6 +34,7 @@ public class Main
 		bankService.setUsername("0");
 		bankService.setPassword("0");
 		MainFrame frame = new MainFrame(bankService);
+		frame.setVisible(true);
 		
 		
 		

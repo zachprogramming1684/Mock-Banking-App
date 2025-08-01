@@ -5,6 +5,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,6 +20,8 @@ import logic.BankService;
 
 public class AccountPanel extends JPanel
 {
+
+	private static final long serialVersionUID = 1L;
 	private PanelSwitcher panelSwitcher; //gives this class a panelSwitcher object to be filled by the constructor
 	private BankService bankService;
 	
@@ -39,6 +42,7 @@ public class AccountPanel extends JPanel
 	
 	private JPanel popupPanel;
 	private String acctDetailsMessage;
+	private String withdrawDepositMessage;
 	
 	public AccountPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
@@ -66,7 +70,7 @@ public class AccountPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		viewSelectedAccount = new JButton("View Account Details");
-		viewSelectedAccount.addActionListener(new viewAcctDetailsActionListener());
+		viewSelectedAccount.addActionListener(new ViewAcctDetailsActionListener());
 		add(viewSelectedAccount, gbc);
 		
 		gbc.gridx = 0;
@@ -86,7 +90,6 @@ public class AccountPanel extends JPanel
 		openAccount = new JButton("Open New Account");
 		openAccount.addActionListener(new MakeAccountActionListener());
 		add(openAccount, gbc);
-
 
 	
 		gbc.gridx = 0;
@@ -110,6 +113,7 @@ public class AccountPanel extends JPanel
 		gbc.gridy = 2;
 		gbc.insets = new Insets(5,150,5,5);
 		depositSubmit = new JButton("Submit");
+		depositSubmit.addActionListener(new DepositActionListener());
 		add(depositSubmit, gbc);
 		// NEEDS ACTION LISTENER
 		
@@ -127,10 +131,11 @@ public class AccountPanel extends JPanel
 		gbc.gridx = 1;
 		gbc.gridy = 7;
 		withdrawSubmit = new JButton("Submit");
+		withdrawSubmit.addActionListener(new WithdrawActionListener());
 		add(withdrawSubmit, gbc);
-		// NEEDS ACTION LISTENER
 		
 	}
+	
 	
 	
 	public class MakeAccountActionListener implements ActionListener
@@ -145,7 +150,7 @@ public class AccountPanel extends JPanel
 		
 	}
 	
-	public class viewAcctDetailsActionListener implements ActionListener
+	public class ViewAcctDetailsActionListener implements ActionListener
 	{
 
 		@Override
@@ -184,6 +189,79 @@ public class AccountPanel extends JPanel
 		{
 			accountSelectorModel.removeAllElements();
 			accountSelectorModel.addAll(bankService.getAccounts());	
+		}
+		
+	}
+	
+	public class WithdrawActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Account acctToWithdraw = (Account) accountSelector.getSelectedItem();
+			int indexToWithdraw = acctToWithdraw.getAccountNumber();
+			try
+			{
+				boolean withdrawChecker = bankService.withdrawMoney(indexToWithdraw, Double.parseDouble(withdrawField.getText()));
+				if(withdrawChecker)
+				{
+					withdrawDepositMessage = "Withdraw successful.";
+					withdrawField.setText("");
+					JOptionPane.showMessageDialog(popupPanel, withdrawDepositMessage);
+				}
+				else
+				{
+					withdrawDepositMessage = "Please input a valid amount to withdraw.";
+					withdrawField.setText("");
+					JOptionPane.showMessageDialog(popupPanel, withdrawDepositMessage, "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			catch(NumberFormatException ex)
+			{
+				withdrawDepositMessage = "Please input a valid amount to withdraw.";
+				withdrawField.setText("");
+				JOptionPane.showMessageDialog(popupPanel, withdrawDepositMessage, "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			accountSelectorModel.removeAllElements();
+			accountSelectorModel.addAll(bankService.getAccounts());
+		}
+		
+	}
+	
+	public class DepositActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			Account acctToDeposit = (Account) accountSelector.getSelectedItem();
+			int indexToDeposit = acctToDeposit.getAccountNumber();
+			try
+			{
+				boolean depositChecker = bankService.depositMoney(indexToDeposit, Double.parseDouble(depositField.getText()));
+				if(depositChecker)
+				{
+					withdrawDepositMessage = "Deposit successful.";
+					depositField.setText("");
+					JOptionPane.showMessageDialog(popupPanel, withdrawDepositMessage);
+				}
+				else
+				{
+					withdrawDepositMessage = "Please input a valid amount to deposit.";
+					depositField.setText("");
+					JOptionPane.showMessageDialog(popupPanel, withdrawDepositMessage, "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			catch(NumberFormatException ex)
+			{
+				withdrawDepositMessage = "Please input a valid amount to deposit.";
+				depositField.setText("");
+				JOptionPane.showMessageDialog(popupPanel, withdrawDepositMessage, "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			accountSelectorModel.removeAllElements();
+			accountSelectorModel.addAll(bankService.getAccounts());
+			
 		}
 		
 	}

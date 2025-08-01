@@ -9,6 +9,8 @@ import logic.BankService;
 
 public class MainFrame extends JFrame implements PanelSwitcher
 {
+
+	private static final long serialVersionUID = 1L;
 	private JPanel cardPanel; // Panel that holds all the cards
 	private CardLayout cardLayout; // Card layout manager
 	
@@ -31,7 +33,6 @@ public class MainFrame extends JFrame implements PanelSwitcher
 		cardPanel.add(new MakeAccountPanel(this, bankService), "MakeAccountPanel");
 		
 		add(cardPanel);
-		setVisible(true);
 	}
 
 	@Override

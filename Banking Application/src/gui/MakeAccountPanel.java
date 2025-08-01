@@ -19,6 +19,8 @@ import logic.BankService;
 
 public class MakeAccountPanel extends JPanel
 {
+
+	private static final long serialVersionUID = 1L;
 	private BankService bankService;
 	private PanelSwitcher panelSwitcher;
 	
