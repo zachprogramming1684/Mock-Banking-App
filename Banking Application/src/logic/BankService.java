@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -84,6 +85,35 @@ public class BankService
 		else
 		{
 			return false;
+		}
+	}
+	
+	public void storeLogin(String username, String password) throws IOException
+	{
+		File f = new File("login_info.csv");
+		FileWriter fw = new FileWriter(f);
+		PrintWriter out = new PrintWriter(fw);
+		out.print(username + "," + password);
+		out.flush();
+		out.close();
+	}
+	
+	public void loadLogin() throws FileNotFoundException
+	{
+		File f = new File("login_info.csv");
+		FileOutputStream fo = new FileOutputStream(f, true);
+		Scanner in = new Scanner(f);
+		if(!in.hasNextLine())
+		{
+			setUsername("guest");
+			setPassword("1234");
+		}
+		else
+		{
+			String line = in.nextLine();
+			String[] tokens = line.split(",");
+			setUsername(tokens[0]);
+			setPassword(tokens[1]);
 		}
 	}
 	
@@ -169,7 +199,7 @@ public class BankService
 		return false;
 	}
 	
-	public void checkBalance(int acctNum)
+	public void checkBalance(int acctNum) // NOT BEING USED. FIGURE THIS OUT.
 	{
 		if(acctNum != 0)
 		{

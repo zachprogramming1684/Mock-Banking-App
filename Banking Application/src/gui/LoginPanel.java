@@ -96,12 +96,10 @@ public class LoginPanel extends JPanel
 			if(goodLogin == true)
 			{
 				panelSwitcher.showPanel("Account Panel");
-				System.out.println("It works");
 			}
 			else
 			{
 		        JOptionPane.showMessageDialog(loginError, errorMessage, dialogTitle, JOptionPane.ERROR_MESSAGE);
-				System.out.println("it works 2");
 
 			}
 			

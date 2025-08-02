@@ -27,37 +27,10 @@ public class Main
 	public static void main(String[] args) throws FileNotFoundException 
 	{
 		BankService bankService = new BankService();
-		//bankService.openNewAccount(0, 200,"zachy123");
-		//bankService.openNewAccount(0, 400,"zachy5345");
-		//bankService.openNewAccount(1, 600,"zachy565");
 		bankService.loadAccounts();
-		bankService.setUsername("0");
-		bankService.setPassword("0");
+		bankService.loadLogin();
 		MainFrame frame = new MainFrame(bankService);
 		frame.setVisible(true);
-		
-		
-		
-		/*
-		BankService bankService = new BankService();
-		bankService.loadAccounts();
-		
-		bankService.openNewAccount(0, 200,"zachy123");
-		bankService.openNewAccount(0, 400,"zachy5345");
-		bankService.openNewAccount(1, 600,"zachy565");
-		bankService.openNewAccount(1, 800,"zachy878");
-		bankService.openNewAccount(0, 1000,"zachy67867"); 
-		bankService.depositMoney(1, 34);
-		bankService.depositMoney(3, 589);
-		bankService.withdrawMoney(5, 999);
-		bankService.transferFunds(2, 4, 400);
-		bankService.depositMoney(1, 100000);
-		bankService.withdrawMoney(2, 1);
-		bankService.checkBalance(0);
-		*/
-		
-
-		
 	}
 
 }
