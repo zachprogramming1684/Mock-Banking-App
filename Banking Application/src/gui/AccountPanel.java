@@ -102,7 +102,8 @@ public class AccountPanel extends JPanel
 		gbc.gridx = 0;
 		gbc.gridy = 7;
 		setLogin = new JButton("Set Login");
-		//TODO: Finish this after making the page
+		setLogin.addActionListener(new SetLoginPageActionListener());
+		add(setLogin, gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
@@ -195,6 +196,18 @@ public class AccountPanel extends JPanel
 		{
 			accountSelectorModel.removeAllElements();
 			accountSelectorModel.addAll(bankService.getAccounts());	
+		}
+		
+	}
+	
+	private class SetLoginPageActionListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			panelSwitcher.showPanel("Set Login Panel");
+			
 		}
 		
 	}
