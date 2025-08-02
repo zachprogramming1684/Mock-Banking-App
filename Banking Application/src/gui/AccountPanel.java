@@ -122,7 +122,6 @@ public class AccountPanel extends JPanel
 		depositSubmit = new JButton("Submit");
 		depositSubmit.addActionListener(new DepositActionListener());
 		add(depositSubmit, gbc);
-		// NEEDS ACTION LISTENER
 		
 		gbc.gridx = 1;
 		gbc.gridy = 5;
