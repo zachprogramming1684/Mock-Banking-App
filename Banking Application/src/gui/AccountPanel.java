@@ -33,6 +33,7 @@ public class AccountPanel extends JPanel
 	private JButton viewSelectedAccount;
 	private JButton deleteSelectedAccount;
 	private JButton refresh;
+	private JButton setLogin;
 	private JLabel depositLabel;
 	private JTextField depositField;
 	private JButton depositSubmit;
@@ -97,6 +98,11 @@ public class AccountPanel extends JPanel
 		refresh = new JButton("Refresh Accounts");
 		refresh.addActionListener(new RefreshButtonActionListener());
 		add(refresh, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 7;
+		setLogin = new JButton("Set Login");
+		//TODO: Finish this after making the page
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
