@@ -36,44 +36,37 @@ public class BankService
 		this.accounts = new ArrayList<Account>();
 	}
 	
-	public void loadAccounts()
+	public void loadAccounts() throws FileNotFoundException
 	{
-		try
+		File f = new File("accounts.csv");
+		FileOutputStream fo = new FileOutputStream(f, true);
+		Scanner in = new Scanner(f);
+		while (in.hasNextLine())
 		{
-			File f = new File("accounts.csv");
-			FileOutputStream fo = new FileOutputStream(f, true);
-			Scanner in = new Scanner(f);
-			while (in.hasNextLine())
+			String line = in.nextLine();
+			String[] tokens = line.split(",");
+			if(Integer.parseInt(tokens[0]) == 0)
 			{
-				String line = in.nextLine();
-				String[] tokens = line.split(",");
-				if(Integer.parseInt(tokens[0]) == 0)
-				{
-					Account a = new CheckingAccount(Double.parseDouble(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
-					accounts.add(a);
-					idCount++;
-				}
-				else if(Integer.parseInt(tokens[0]) == 1)
-				{
-					Account a = new SavingsAccount(Double.parseDouble(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
-					accounts.add(a);
-					idCount++;
-				}
+				Account a = new CheckingAccount(Double.parseDouble(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
+				accounts.add(a);
+				idCount++;
 			}
-			
-			for(Account a : accounts)
+			else if(Integer.parseInt(tokens[0]) == 1)
 			{
-				if(a.getAccountNumber() - idCount > 0)
-				{
-					idCount++;
-				}
+				Account a = new SavingsAccount(Double.parseDouble(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
+				accounts.add(a);
+				idCount++;
 			}
-			in.close();
 		}
-		catch(FileNotFoundException e)
+		
+		for(Account a : accounts)
 		{
-			System.out.println("There was an error loading in account data, please try again.");
+			if(a.getAccountNumber() - idCount > 0)
+			{
+				idCount++;
+			}
 		}
+		in.close();
 	}
 	
 	public boolean checkLogin(String username, String password)
