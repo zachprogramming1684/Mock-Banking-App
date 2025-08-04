@@ -27,6 +27,7 @@ java Mock-Banking-App/"Banking Application"/src/logic/Main.java
 
 ## Usage
 Important Notes:  
+
 The default username and password are `guest` and `1234` respectively. You can change your username and password in the program using the `Set Login` button on the account page.  
 
 After opening a new account, you must press the `Refresh Accounts` button to see the changes reflected in the account selection dropdown box.  
