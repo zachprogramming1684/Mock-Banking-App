@@ -19,7 +19,6 @@ import logic.BankService;
 
 public class MakeAccountPanel extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
 	private BankService bankService;
 	private PanelSwitcher panelSwitcher;
@@ -37,11 +36,8 @@ public class MakeAccountPanel extends JPanel
 	private String errorTitle = "An error occured.";
 	private JPanel popupPanel = new JPanel();
 	
-	
 	public MakeAccountPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
-		
-		
 		this.bankService = bankService;
 		this.panelSwitcher = panelSwitcher;
 		
@@ -84,17 +80,13 @@ public class MakeAccountPanel extends JPanel
 		returnButton = new JButton("Go Back");
 		returnButton.addActionListener(new GoBackActionListener());
 		add(returnButton, gbc);
-		
-		
 	}
 	
 	public class CreateAccountActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-
 			successMessage = "Account created successfully";
 			
 			if(checkingOrSavings.getSelectedItem().equals("Checking Account"))
@@ -140,24 +132,15 @@ public class MakeAccountPanel extends JPanel
 					JOptionPane.showMessageDialog(popupPanel, generalError, errorTitle, JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
 		}
-		
 	}
 	
 	public class GoBackActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			panelSwitcher.showPanel("Account Panel");
-			
 		}
-		
 	}
-	
-	
-	
-	
 }

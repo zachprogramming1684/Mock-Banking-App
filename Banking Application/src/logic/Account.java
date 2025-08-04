@@ -1,8 +1,10 @@
 package logic;
 
 
-
-public class Account 
+/*
+ * This is an abstract class that outlines the blueprint for an Account object.
+ */
+public abstract class Account 
 {
 	private double balance;
 	private int accountNumber;
@@ -25,38 +27,51 @@ public class Account
 		setBalance(getBalance() - amount);
 	}
 
-	public double getBalance() {
+	public double getBalance() 
+	{
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(double balance) 
+	{
 		this.balance = balance;
 	}
 
-	public int getAccountNumber() {
+	public int getAccountNumber() 
+	{
 		return accountNumber;
 	}
 
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(int accountNumber) 
+	{
 		this.accountNumber = accountNumber;
 	}
 
-	public String getCustomerName() {
+	public String getCustomerName() 
+	{
 		return customerName;
 	}
 
-	public void setCustomerName(String customerName) {
+	public void setCustomerName(String customerName) 
+	{
 		this.customerName = customerName;
 	}
 	
+	// Comma separated format for saving to a CSV file.
 	public String toCSV()
 	{
 		return balance + "," + accountNumber + "," + customerName;
 	}
 	
+	//String representation of an Account for viewing in the GUI.
 	public String toString()
 	{
 		return "Customer Name: " + customerName + " || Account Number: " + accountNumber + " || Balance: " + balance;
+	}
+
+	public double getInterestRate() 
+	{
+		return 0;
 	}
 	
 }

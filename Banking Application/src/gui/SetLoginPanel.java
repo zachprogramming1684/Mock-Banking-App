@@ -34,7 +34,6 @@ public class SetLoginPanel extends JPanel
 	{
 		this.panelSwitcher = panelSwitcher;
 		this.bankService = bankService;
-		//TODO: FINISH THIS
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -77,7 +76,6 @@ public class SetLoginPanel extends JPanel
 	
 	public class SubmitLoginActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -91,20 +89,15 @@ public class SetLoginPanel extends JPanel
 			{
 				JOptionPane.showMessageDialog(popupPanel, "Error", "There was an error storing login information. Please try again.", JOptionPane.ERROR_MESSAGE);
 			}
-			
 		}
-		
 	}
 	
 	public class GoBackButtonActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			panelSwitcher.showPanel("Account Panel");
-			
 		}
-		
 	}
 }

@@ -20,9 +20,8 @@ import logic.BankService;
 
 public class AccountPanel extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
-	private PanelSwitcher panelSwitcher; //gives this class a panelSwitcher object to be filled by the constructor
+	private PanelSwitcher panelSwitcher; // Gives this class a panelSwitcher object to be filled by the constructor.
 	private BankService bankService;
 	
 	private JLabel loginLabel;
@@ -45,6 +44,11 @@ public class AccountPanel extends JPanel
 	private String acctDetailsMessage;
 	private String withdrawDepositMessage;
 	
+	/**
+	 * Main panel for completing various account-related actions. Utilizes many action listeners for moving to different panels and completing actions.
+	 * @param panelSwitcher
+	 * @param bankService
+	 */
 	public AccountPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
 		this.panelSwitcher = panelSwitcher;
@@ -67,7 +71,6 @@ public class AccountPanel extends JPanel
 		accountSelector.setSelectedIndex(-1);
 		add(accountSelector, gbc);
 
-		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		viewSelectedAccount = new JButton("View Account Details");
@@ -92,7 +95,6 @@ public class AccountPanel extends JPanel
 		openAccount.addActionListener(new MakeAccountActionListener());
 		add(openAccount, gbc);
 
-	
 		gbc.gridx = 0;
 		gbc.gridy = 6;
 		refresh = new JButton("Refresh Accounts");
@@ -139,26 +141,20 @@ public class AccountPanel extends JPanel
 		withdrawSubmit = new JButton("Submit");
 		withdrawSubmit.addActionListener(new WithdrawActionListener());
 		add(withdrawSubmit, gbc);
-		
 	}
-	
-	
 	
 	public class MakeAccountActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			panelSwitcher.showPanel("MakeAccountPanel");
 			
 		}
-		
 	}
 	
 	public class ViewAcctDetailsActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -167,14 +163,11 @@ public class AccountPanel extends JPanel
 			double balance = chosenAcct.getBalance();
 			acctDetailsMessage = "Account Name: " + acctName + "\n Balance: $" + balance;
 			JOptionPane.showMessageDialog(popupPanel, acctDetailsMessage);
-			
 		}
-		
 	}
 	
 	public class DeleteSelectedAccountActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -184,36 +177,30 @@ public class AccountPanel extends JPanel
 			accountSelectorModel.removeAllElements();
 			accountSelectorModel.addAll(bankService.getAccounts());
 		}
-		
 	}
 	
 	public class RefreshButtonActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			accountSelectorModel.removeAllElements();
 			accountSelectorModel.addAll(bankService.getAccounts());	
 		}
-		
 	}
 	
 	private class SetLoginPageActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			panelSwitcher.showPanel("Set Login Panel");
 			
 		}
-		
 	}
 	
 	public class WithdrawActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -244,12 +231,10 @@ public class AccountPanel extends JPanel
 			accountSelectorModel.removeAllElements();
 			accountSelectorModel.addAll(bankService.getAccounts());
 		}
-		
 	}
 	
 	public class DepositActionListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
@@ -279,8 +264,6 @@ public class AccountPanel extends JPanel
 			}
 			accountSelectorModel.removeAllElements();
 			accountSelectorModel.addAll(bankService.getAccounts());
-			
 		}
-		
 	}
 }

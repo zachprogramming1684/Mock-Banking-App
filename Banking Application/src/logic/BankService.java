@@ -10,32 +10,26 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 public class BankService 
 {
-	 /*
-	 * --- Features ---
-	 * 
-	 * - Save to file (DONE)
-	 * - Keep track of ID numbers (DONE I THINK)
-	 * 
-	 * - Open a new account (DONE)
-	 * - Deposit money (DONE)
-	 * - Withdraw money (DONE)
-	 * - Check balance for account or all accounts (DONE)
-	 * - Transfer funds between accounts
-	 * - Calculate interest for a month
-	 */
-	
-	private ArrayList<Account> accounts; //declare accounts instance variable
-	private int idCount = 0;
+	private ArrayList<Account> accounts; // Declare accounts ArrayList.
+	private int idCount = 0; // ID count starts at zero and is incremented when accounts are loaded in or created.
 	private String username;
 	private String password;
 	
-	public BankService() //initialize accounts variable in the constructor
+	public BankService() // Initialize accounts variable in the constructor.
 	{
 		this.accounts = new ArrayList<Account>();
 	}
 	
+	/**
+	 * Loads accounts from a CSV file. If no file is found, this method will create one so that new accounts can be opened
+	 * and saved to it.
+	 * @throws FileNotFoundException
+	 */
 	public void loadAccounts() throws FileNotFoundException
 	{
 		File f = new File("accounts.csv");
@@ -59,6 +53,9 @@ public class BankService
 			}
 		}
 		
+		/*
+		 * Quick for loop to keep track of ID numbers for accounts. It works quite well.
+		 */
 		for(Account a : accounts)
 		{
 			if(a.getAccountNumber() - idCount > 0)
@@ -69,6 +66,13 @@ public class BankService
 		in.close();
 	}
 	
+	/**
+	 * Method used to check the login information given by the user.
+	 * This is a simple check to allow entry only if the user given information matches what is saved in the bankService object.
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public boolean checkLogin(String username, String password)
 	{
 		if(getUsername().equals(username) && getPassword().equals(password))
@@ -81,6 +85,12 @@ public class BankService
 		}
 	}
 	
+	/**
+	 * This method is used to store a custom login from the user. This creates a new CSV file if one does not already exist and stores the username and password there.
+	 * @param username
+	 * @param password
+	 * @throws IOException
+	 */
 	public void storeLogin(String username, String password) throws IOException
 	{
 		File f = new File("login_info.csv");
@@ -91,6 +101,10 @@ public class BankService
 		out.close();
 	}
 	
+	/**
+	 * This method loads login information from the previously created CSV file. If there is not information to be loaded, the login is set to default values.
+	 * @throws FileNotFoundException
+	 */
 	public void loadLogin() throws FileNotFoundException
 	{
 		File f = new File("login_info.csv");
@@ -110,6 +124,13 @@ public class BankService
 		}
 	}
 	
+	/**
+	 * This method opens a new account and saves it to a file directly after creation. This is to avoid data loss when manipulating accounts.
+	 * @param choice (checking or savings account)
+	 * @param balance (starting balance, always zero in the context of this program)
+	 * @param customerName (customer or account name for the account to be opened)
+	 * @throws FileNotFoundException
+	 */
 	public void openNewAccount(int choice, double balance, String customerName) throws FileNotFoundException
 	{
 		File f = new File("accounts.csv");
@@ -123,7 +144,6 @@ public class BankService
 			accounts.add(a);
 			out.print(a.toCSV());
 			out.flush();
-			System.out.println("Checking Account opened successfully");
 		}
 		else if(choice == 1) // 1 is for savings account
 		{
@@ -132,11 +152,14 @@ public class BankService
 			accounts.add(a);
 			out.print(a.toCSV());
 			out.flush();
-			System.out.println("Savings Account opened successfully");
 		}
 		out.close();
 	}
 	
+	/**
+	 * Simply removes an account from the ArrayList and furthermore CSV file.
+	 * @param acctNum
+	 */
 	public void removeAccount(int acctNum)
 	{
 		for(Account a : accounts)
@@ -150,6 +173,12 @@ public class BankService
 		saveToFile();
 	}
 	
+	/**
+	 * Deposits money into a given account and saves changes to the CSV file.
+	 * @param acctNum
+	 * @param amount
+	 * @return
+	 */
 	public boolean depositMoney(int acctNum, double amount)
 	{
 		for(Account a : accounts)
@@ -158,7 +187,7 @@ public class BankService
 			{
 				if(amount > 0)
 				{
-					a.setBalance(a.getBalance() + amount);
+					a.deposit(amount);
 					saveToFile();
 					return true;
 				}
@@ -171,6 +200,12 @@ public class BankService
 		return false;
 	}
 	
+	/**
+	 * Withdraws money from a given account and saves changes to the CSV file.
+	 * @param acctNum
+	 * @param amount
+	 * @return
+	 */
 	public boolean withdrawMoney(int acctNum, double amount)
 	{
 		for(Account a : accounts)
@@ -179,7 +214,7 @@ public class BankService
 			{
 				if(a.getBalance() - amount >= 0 && amount <= a.getBalance())
 				{
-					a.setBalance(a.getBalance() - amount);
+					a.withdraw(amount);
 					saveToFile();
 					return true;
 				}
@@ -192,61 +227,35 @@ public class BankService
 		return false;
 	}
 	
-	public void checkBalance(int acctNum) // NOT BEING USED. FIGURE THIS OUT.
+	/**
+	 * Calculates interest that will be earned from a given account over a period of time.
+	 * @param acctId
+	 * @param timePeriod
+	 * @return
+	 */
+	public double calculateInterest(int acctId, double timePeriod) // TODO: Finish this
 	{
-		if(acctNum != 0)
-		{
-			for(Account a : accounts)
-			{
-				if(acctNum == a.getAccountNumber())
-				{
-					System.out.println("Balance: $" + a.getBalance());
-					break;
-				}
-			}
-		}
-		else
-		{
-			for(Account a : accounts)
-			{
-				System.out.print(a);
-			}
-		}
-	}
-	
-	public void transferFunds(int acct1Num, int acct2Num, double amount)
-	{
-		Account acct1 = null;
-		Account acct2 = null;
+		Account account = null;
+		double interestRate;
+		double interestAmount;
 		
 		for(Account a : accounts)
 		{
-			if(acct1Num == a.getAccountNumber())
+			if(a.getAccountNumber() == acctId)
 			{
-				acct1 = a;
+				account = a;
+				break;
 			}
-			else if (acct2Num == a.getAccountNumber())
-			{
-				acct2 = a;
-			}	
 		}
 		
-		if(acct1 != null && acct2 != null)
-		{
-			 if(acct1.getBalance() - amount >= 0 && amount <= acct1.getBalance())
-			 {
-				 acct1.setBalance(acct1.getBalance() - amount);
-				 acct2.setBalance(acct2.getBalance() + amount);
-				 saveToFile();
-				 System.out.println("Transfer successfull.");
-			 }
-		}
-		else
-		{
-			System.out.println("Please provide valid account numbers.");
-		}
+		interestRate = account.getInterestRate();
+		
+		return 0;
 	}
 	
+	/**
+	 * Helpful method for saving changes made to accounts to the CSV file. This method prevents data loss by providing a universal way to save changes to the file directly after they are made.
+	 */
 	public void saveToFile()
 	{
 		try
@@ -264,23 +273,27 @@ public class BankService
 		}
 		catch(Exception e)
 		{
-			System.out.println("Error writing to file, please make sure the file is closed.");
+			JOptionPane.showMessageDialog(new JPanel(), "There was an error saving data, please make sure accounts.csv is closed.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	public String getUsername() {
+	public String getUsername() 
+	{
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(String username) 
+	{
 		this.username = username;
 	}
 
-	public String getPassword() {
+	public String getPassword() 
+	{
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password) 
+	{
 		this.password = password;
 	}
 	
@@ -288,6 +301,4 @@ public class BankService
 	{
 		return accounts;
 	}
-
-
 }

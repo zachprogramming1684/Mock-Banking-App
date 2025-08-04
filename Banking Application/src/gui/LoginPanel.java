@@ -18,9 +18,8 @@ import logic.BankService;
 
 public class LoginPanel extends JPanel
 {
-
 	private static final long serialVersionUID = 1L;
-	private PanelSwitcher panelSwitcher; //gives this class a panelSwitcher object to be filled by the constructor
+	private PanelSwitcher panelSwitcher; // Gives this class a panelSwitcher object to be filled by the constructor.
 	private BankService bankService;
 	
 	private JLabel loginLabel;
@@ -36,7 +35,7 @@ public class LoginPanel extends JPanel
 	
 	public LoginPanel(PanelSwitcher panelSwitcher, BankService bankService)
 	{
-		this.panelSwitcher = panelSwitcher; //panelSwitcher object is passed into the private field from the constructor so that this class itself can switch panels
+		this.panelSwitcher = panelSwitcher; // PanelSwitcher object is passed into the private field from the constructor so that this class itself can switch panels.
 		this.bankService = bankService;
 		
 		this.setLayout(new GridBagLayout());
@@ -77,13 +76,10 @@ public class LoginPanel extends JPanel
 		submitButton = new JButton("Submit");
 		submitButton.addActionListener(new LoginActionListener());
 		add(submitButton, gbc);
-		
-		
 	}
 	
 	public class LoginActionListener implements ActionListener
 	{
-		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
