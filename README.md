@@ -1,5 +1,5 @@
 # Mock-Banking-App
-This is a simple, Mock Banking Application. Built with Core Java principles and Swing GUI elements, you have access to various features such as opening accounts, depositing funds, and withdrawing funds. Please see my video demo at the bottom of this README! This project solidified my understanding of Core Java, Object Oriented Programming, and Swing GUI design. I am excited to continue improving it!
+This is a simple, Mock Banking Application. Built with Core Java and Swing GUI elements, you have access to various features such as opening accounts, depositing funds, and withdrawing funds. Please see my video demo at the bottom of this README! This project solidified my understanding of Core Java, Object Oriented Programming, and Swing GUI design. I am excited to continue improving it!
 
 ## Installation
 1. Ensure you have the latest JDK installed on your machine. This can be found here: https://www.oracle.com/java/technologies/downloads/
